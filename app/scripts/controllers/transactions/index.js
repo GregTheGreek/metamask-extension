@@ -148,10 +148,21 @@ export default class TransactionController extends EventEmitter {
 
   /**
   Adds a tx to the txlist
+  
+  @param {Object} txMeta - Transaction data
+  @param {Object} opts - Contains booleans dictating type of tx. Options ["speedup", "cancel"]
+
   @emits ${txMeta.id}:unapproved
   */
-  addTx(txMeta) {
+  addTx(txMeta, opts = {}) {
     this.txStateManager.addTx(txMeta);
+    if (opts["speedup"]) {
+
+    } else if (opts["cancel"]) {
+
+    }
+
+    // Lave the same for backward compatibility reasons
     this.emit(`${txMeta.id}:unapproved`, txMeta);
   }
 
